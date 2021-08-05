@@ -131,9 +131,9 @@ class Furbyface(MycroftSkill):
             self.bellytime = True
     def backbutton(self,pin):
         print("got back button")
-    def handler_unknown(self):
+    def handler_unknown(self,message):
         print("I didn't understand")
-        #self.gotosleep()
+        self.bus.emit(Message('speak', {"utterance": "pardon?", "lang": "en-GB"}))
     def gotosleep(self):
         print("trying to sleep")
 #        TalkingThread.talk = False
@@ -155,7 +155,6 @@ class Furbyface(MycroftSkill):
         #GPIO.output(self.STBY, GPIO.LOW)
 
     def stopbutton(self,pin):
-        print("Furby stop button")
         if self.stop:
             print("furby stop stop!")
             time.sleep(0.4)
