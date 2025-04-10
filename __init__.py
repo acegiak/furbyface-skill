@@ -7,7 +7,7 @@ import threading
 
 
 
-class Furbyface(OvosSkill):
+class Furbyface(OVOSSkill):
 	talkingthread = None
 	def __init__(self):
 		OVOSSkill.__init__(self)
