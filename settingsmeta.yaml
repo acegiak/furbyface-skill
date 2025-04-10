@@ -1,22 +1,47 @@
 
 skillMetadata:
   sections:
-    - name: Options << Name of section
-      fields:
-        - name: internal_python_variable_name
-          type: text
-          label: Setting Friendly Display Name
-          value: ""
-          placeholder: demo prompt in the input box
-    - name: Login << Name of another section
+    - name: Pinouts
       fields:
         - type: label
-          label: Just a little bit of extra info for the user to understand following settings
-        - name: username
-          type: text
-          label: Username
-          value: ""
-        - name: password
-          type: password
-          label: Password
-          value: ""
+          label: Which pins on the raspberry pi are the various parts of the furby circuit connected to?
+        - name: ain1_pin
+          type: number
+          label: AIN1 Pin
+          value: 13
+        - name: ain2_pin
+          type: number
+          label: AIN2 Pin
+          value: 15
+        - name: stby_pin
+          type: number
+          label: Standby Pin
+          value: 11
+        - name: pwma_pin
+          type: number
+          label: PWMA Pin
+          value: 7
+        - name: timer_input_pin
+          type: number
+          label: Speech Timer Input Pin
+          value: 12
+        - name: belly_input_pin
+          type: number
+          label: Belly Input Pin
+          value: 16
+        - name: back_input_pin
+          type: number
+          label: Back Input Pin
+          value: 18
+    - name: Timings
+      fields:
+        - type: label
+          label: How long do certain movements take (in seconds)
+        - name: eye_open_time
+          type: number
+          label: Eye Opening
+          value: 0.2
+        - name: eye_close_time
+          type: number
+          label: Eye Close Time
+          value: 0.25

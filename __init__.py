@@ -11,28 +11,29 @@ class Furbyface(OVOSSkill):
 	talkingthread = None
 	def __init__(self):
 		OVOSSkill.__init__(self)
-		self.PWMA = 7
-		self.AIN2 = 15
-		self.AIN1 = 13
-		self.STBY = 11
-		self.openeyes = 0.2
-		self.talktime = 0.25
+		self.PWMA = self.settings.get('pwma_pin')
+		self.AIN2 = self.settings.get('ain2_pin')
+		self.AIN1 = self.settings.get('ain1_pin')
+		self.STBY = self.settings.get('stby_pin')
+		self.openeyes = self.settings.get('eye_open_time')
+		self.talktime = self.settings.get('eye_close_time')
 		GPIO.setmode(GPIO.BOARD)   # Declare the GPIO settings
 		GPIO.setup(self.PWMA, GPIO.OUT) # Connected to PWMA
 		GPIO.setup(self.AIN2, GPIO.OUT) # Connected to AIN2
 		GPIO.setup(self.AIN1, GPIO.OUT) # Connected to AIN1
 		GPIO.setup(self.STBY, GPIO.OUT) # Connected to STBY
 		self.stop = False
-		GPIO.setup(12, GPIO.IN,pull_up_down=GPIO.PUD_UP)
-		GPIO.remove_event_detect(12)
-		GPIO.add_event_detect(12,GPIO.FALLING, callback=self.stopbutton)
-		GPIO.setup(16, GPIO.IN,pull_up_down=GPIO.PUD_UP)
-		GPIO.remove_event_detect(16)
-		GPIO.add_event_detect(16,GPIO.FALLING, callback=self.bellybutton)
-		GPIO.setup(18, GPIO.IN,pull_up_down=GPIO.PUD_UP)
+		GPIO.setup(self.settings.get('timer_input_pin'), GPIO.IN,pull_up_down=GPIO.PUD_UP)
+		GPIO.remove_event_detect(self.settings.get('timer_input_pin'))
+		GPIO.add_event_detect(self.settings.get('timer_input_pin'),GPIO.FALLING, callback=self.stopbutton)
+		
+		GPIO.setup(self.settings.get('belly_input_pin'), GPIO.IN,pull_up_down=GPIO.PUD_UP)
+		GPIO.remove_event_detectself.settings.get('belly_input_pin')
+		GPIO.add_event_detect(self.settings.get('belly_input_pin'),GPIO.FALLING, callback=self.bellybutton)
 
-		GPIO.remove_event_detect(18)
-		GPIO.add_event_detect(18,GPIO.FALLING, callback=self.backbutton)
+		GPIO.setup(self.settings.get('back_input_pin'), GPIO.IN,pull_up_down=GPIO.PUD_UP)
+		GPIO.remove_event_detect(self.settings.get('back_input_pin'))
+		GPIO.add_event_detect(self.settings.get('back_input_pin'),GPIO.FALLING, callback=self.backbutton)
 		self.bellytime = True
 
 	def initialize(self):
