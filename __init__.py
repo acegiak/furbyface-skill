@@ -29,29 +29,29 @@ class Furbyface(OVOSSkill):
 		self.on_settings_changed()  # Also run immediately on start
 
 	def on_settings_changed(self):
-		self.PWMA = self.settings.get('pwma_pin')
-		self.AIN2 = self.settings.get('ain2_pin')
-		self.AIN1 = self.settings.get('ain1_pin')
-		self.STBY = self.settings.get('stby_pin')
-		self.openeyes = self.settings.get('eye_open_time')
-		self.talktime = self.settings.get('eye_close_time')
+		self.PWMA = self.settings.get('pwma_pin',7)
+		self.AIN2 = self.settings.get('ain2_pin',15)
+		self.AIN1 = self.settings.get('ain1_pin',13)
+		self.STBY = self.settings.get('stby_pin',11)
+		self.openeyes = self.settings.get('eye_open_time',0.2)
+		self.talktime = self.settings.get('eye_close_time',0.2)
 		GPIO.setmode(GPIO.BOARD)   # Declare the GPIO settings
 		GPIO.setup(self.PWMA, GPIO.OUT) # Connected to PWMA
 		GPIO.setup(self.AIN2, GPIO.OUT) # Connected to AIN2
 		GPIO.setup(self.AIN1, GPIO.OUT) # Connected to AIN1
 		GPIO.setup(self.STBY, GPIO.OUT) # Connected to STBY
 		
-		GPIO.setup(self.settings.get('timer_input_pin'), GPIO.IN,pull_up_down=GPIO.PUD_UP)
-		GPIO.remove_event_detect(self.settings.get('timer_input_pin'))
-		GPIO.add_event_detect(self.settings.get('timer_input_pin'),GPIO.FALLING, callback=self.stopbutton)
+		GPIO.setup(self.settings.get('timer_input_pin',12), GPIO.IN,pull_up_down=GPIO.PUD_UP)
+		GPIO.remove_event_detect(self.settings.get('timer_input_pin',12))
+		GPIO.add_event_detect(self.settings.get('timer_input_pin',12),GPIO.FALLING, callback=self.stopbutton)
 		
-		GPIO.setup(self.settings.get('belly_input_pin'), GPIO.IN,pull_up_down=GPIO.PUD_UP)
-		GPIO.remove_event_detectself.settings.get('belly_input_pin')
-		GPIO.add_event_detect(self.settings.get('belly_input_pin'),GPIO.FALLING, callback=self.bellybutton)
+		GPIO.setup(self.settings.get('belly_input_pin',16), GPIO.IN,pull_up_down=GPIO.PUD_UP)
+		GPIO.remove_event_detectself.settings.get('belly_input_pin',16)
+		GPIO.add_event_detect(self.settings.get('belly_input_pin',16),GPIO.FALLING, callback=self.bellybutton)
 
-		GPIO.setup(self.settings.get('back_input_pin'), GPIO.IN,pull_up_down=GPIO.PUD_UP)
-		GPIO.remove_event_detect(self.settings.get('back_input_pin'))
-		GPIO.add_event_detect(self.settings.get('back_input_pin'),GPIO.FALLING, callback=self.backbutton)
+		GPIO.setup(self.settings.get('back_input_pin',18), GPIO.IN,pull_up_down=GPIO.PUD_UP)
+		GPIO.remove_event_detect(self.settings.get('back_input_pin',18))
+		GPIO.add_event_detect(self.settings.get('back_input_pin',18),GPIO.FALLING, callback=self.backbutton)
 
 	def handler_wakeword(self, message):
 		print("Furby got Wakeword")

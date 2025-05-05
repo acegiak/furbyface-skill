@@ -5,7 +5,7 @@ from os import walk, path
 
 
 SKILL_CLAZZ = "Furbyface"  # Make sure it matches __init__.py class name
-VERSION = "0.0.4"
+VERSION = "0.0.5"
 URL = "https://github.com/acegiak/furbyface-skill"
 AUTHOR = "Ash McAllan"
 EMAIL = ""
