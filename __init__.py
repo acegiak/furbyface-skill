@@ -46,7 +46,7 @@ class Furbyface(OVOSSkill):
 		GPIO.add_event_detect(int(self.settings.get('timer_input_pin',12)),GPIO.FALLING, callback=self.stopbutton)
 		
 		GPIO.setup(int(self.settings.get('belly_input_pin',16)), GPIO.IN,pull_up_down=GPIO.PUD_UP)
-		GPIO.remove_event_detectint(self.settings.get('belly_input_pin',16))
+		GPIO.remove_event_detect(int(self.settings.get('belly_input_pin',16)))
 		GPIO.add_event_detect(int(self.settings.get('belly_input_pin',16)),GPIO.FALLING, callback=self.bellybutton)
 
 		GPIO.setup(int(self.settings.get('back_input_pin',18)), GPIO.IN,pull_up_down=GPIO.PUD_UP)
