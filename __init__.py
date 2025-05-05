@@ -11,6 +11,24 @@ class Furbyface(OVOSSkill):
 	talkingthread = None
 	def __init__(self):
 		OVOSSkill.__init__(self)
+
+	def initialize(self):
+		self.bellytime = True
+		self.stop = False
+		self.add_event('recognizer_loop:audio_output_start',
+				   self.handler_talk_start)
+		self.add_event('recognizer_loop:audio_output_end',
+				   self.handler_talk_end)
+		self.add_event('recognizer_loop:wakeword',
+				   self.handler_wakeword)
+		self.add_event('recognizer_loop:sleep',
+				   self.handler_sleep)
+		self.add_event('mycroft.speech.recognition.unknown',
+				   self.handler_unknown)
+		self.settings_change_callback = self.on_settings_changed
+		self.on_settings_changed()  # Also run immediately on start
+
+	def on_settings_changed(self):
 		self.PWMA = self.settings.get('pwma_pin')
 		self.AIN2 = self.settings.get('ain2_pin')
 		self.AIN1 = self.settings.get('ain1_pin')
@@ -22,7 +40,7 @@ class Furbyface(OVOSSkill):
 		GPIO.setup(self.AIN2, GPIO.OUT) # Connected to AIN2
 		GPIO.setup(self.AIN1, GPIO.OUT) # Connected to AIN1
 		GPIO.setup(self.STBY, GPIO.OUT) # Connected to STBY
-		self.stop = False
+		
 		GPIO.setup(self.settings.get('timer_input_pin'), GPIO.IN,pull_up_down=GPIO.PUD_UP)
 		GPIO.remove_event_detect(self.settings.get('timer_input_pin'))
 		GPIO.add_event_detect(self.settings.get('timer_input_pin'),GPIO.FALLING, callback=self.stopbutton)
@@ -34,19 +52,6 @@ class Furbyface(OVOSSkill):
 		GPIO.setup(self.settings.get('back_input_pin'), GPIO.IN,pull_up_down=GPIO.PUD_UP)
 		GPIO.remove_event_detect(self.settings.get('back_input_pin'))
 		GPIO.add_event_detect(self.settings.get('back_input_pin'),GPIO.FALLING, callback=self.backbutton)
-		self.bellytime = True
-
-	def initialize(self):
-		self.add_event('recognizer_loop:audio_output_start',
-				   self.handler_talk_start)
-		self.add_event('recognizer_loop:audio_output_end',
-				   self.handler_talk_end)
-		self.add_event('recognizer_loop:wakeword',
-				   self.handler_wakeword)
-		self.add_event('recognizer_loop:sleep',
-				   self.handler_sleep)
-		self.add_event('mycroft.speech.recognition.unknown',
-				   self.handler_unknown)
 
 	def handler_wakeword(self, message):
 		print("Furby got Wakeword")
