@@ -23,7 +23,7 @@ class Furbyface(OVOSSkill):
 				   self.handler_wakeword)
 		self.add_event('recognizer_loop:sleep',
 				   self.handler_sleep)
-		self.add_event('mycroft.speech.recognition.unknown',
+		self.add_event('recognizer_loop:speech.recognition.unknown',
 				   self.handler_unknown)
 		self.settings_change_callback = self.on_settings_changed
 		self.on_settings_changed()  # Also run immediately on start
