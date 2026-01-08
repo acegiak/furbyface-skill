@@ -94,11 +94,11 @@ class Furbyface(OVOSSkill):
         print("got belly button")
         if self.bellytime:
             self.bellytime = False
-            self.bus.emit(Message('mycroft.stop'))
-            self.bus.emit(
-                Message('speak', {"utterance": "oh! haha!", "lang": "en-GB"}))
-            time.sleep(1)
-            self.bellytime = True
+            # self.bus.emit(Message('mycroft.stop'))
+            # self.bus.emit(
+            #     Message('speak', {"utterance": "oh! haha!", "lang": "en-GB"}))
+            # time.sleep(1)
+            # self.bellytime = True
 
     def backbutton(self, pin):
         print("got back button")
